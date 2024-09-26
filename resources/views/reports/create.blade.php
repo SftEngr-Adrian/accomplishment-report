@@ -12,43 +12,39 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden; /* Prevent scrolling */
+            min-height: 100vh;
+            overflow: hidden; /* Prevent scrollbars on body */
         }
 
-        .container {
-            background-color: #ffffff; /* White background for the form */
-            padding: 40px;
+        .full-width {
+            background-color: #fefefe; /* Slightly off-white background */
+            padding: 40px; /* Padding to make space around the form */
             border-radius: 15px; /* Rounded edges */
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            width: 90%; /* Wider for larger screens */
+            width: 90vw; /* Full width with some margins */
             max-width: 800px; /* Max width for readability */
-            transition: transform 0.3s; /* Animation on hover */
-            text-align: left; /* Align text to the left */
-            overflow-y: auto; /* Allow scrolling if content overflows */
-            height: 90%; /* Full height */
-            display: flex; /* Flex to allow full height layout */
+            max-height: 90vh; /* Max height for scrolling */
+            overflow-y: auto; /* Allow vertical scrolling */
+            display: flex; /* Flexbox for layout */
             flex-direction: column; /* Vertical alignment of form elements */
-            background-color: #fefefe; /* Slightly off-white background for the container */
+            scroll-behavior: smooth; /* Smooth scrolling */
+            transition: all 0.3s; /* Smooth transition for hover effects */
         }
 
         h1 {
-    color: #ff6f20; /* Vibrant orange */
-    margin-top: 40px; /* Increased top margin for elevation */
-    margin-bottom: 40px; /* Increased bottom margin for spacing below */
-    font-size: 36px; /* Increased font size for stronger presence */
-    font-weight: bold; /* Bold text */
-    text-align: center; /* Center align the title */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Adds depth to the text */
-}
-
+            color: #ff6f20; /* Vibrant orange */
+            margin: 0 0 20px 0; /* Reset top margin and set bottom margin */
+            font-size: 36px; /* Increased font size for stronger presence */
+            font-weight: bold; /* Bold text */
+            text-align: center; /* Center align the title */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Adds depth to the text */
+        }
 
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
             color: #555;
-            text-align: left;
         }
 
         input[type="text"],
@@ -57,14 +53,14 @@
         input[type="time"],
         textarea {
             width: 100%;
-            padding: 12px;
+            padding: 12px; /* Slightly more padding for comfort */
             margin-bottom: 15px;
             border: none; /* No border */
             border-radius: 25px; /* Rounded edges */
             background-color: #e9f5ff; /* Light blue background for text inputs */
             font-size: 14px;
             height: 45px; /* Consistent height */
-            box-sizing: border-box;
+            box-sizing: border-box; /* Include padding in the height */
             transition: all 0.3s;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
         }
@@ -88,6 +84,9 @@
             font-size: 16px;
             height: 45px; /* Consistent height */
             transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+            margin-top: 20px; /* Margin on top for spacing */
+            font-weight: bold; /* Make button text bold */
+            letter-spacing: 1px; /* Slightly increase letter spacing */
         }
 
         button:hover {
@@ -96,11 +95,17 @@
         }
 
         .task-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             padding: 15px;
             border: 1px solid #ddd; /* Light border around each task */
             border-radius: 10px; /* Rounded corners */
             background-color: #f9f9f9; /* Light gray background for tasks */
+            transition: all 0.3s; /* Smooth transition for hover effects */
+        }
+
+        .task-group:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Elevate effect on hover */
+            background-color: #f1f1f1; /* Slightly darker background on hover */
         }
 
         .alert {
@@ -111,17 +116,33 @@
             border: 1px solid #c3e6cb; /* Light green border */
             border-radius: 5px; /* Rounded edges */
             text-align: center; /* Center the text */
+            font-weight: bold; /* Make alert text bold */
         }
 
         @media (max-width: 480px) {
-            .container {
+            .full-width {
                 padding: 20px; /* Less padding on small screens */
-                width: 90%; /* Responsive design */
+            }
+
+            h1 {
+                font-size: 28px; /* Adjust heading size on small screens */
+            }
+
+            input[type="text"],
+            input[type="number"],
+            input[type="date"],
+            input[type="time"],
+            textarea {
+                height: 40px; /* Slightly shorter height on small screens */
+            }
+
+            button {
+                font-size: 14px; /* Adjust button font size on small screens */
             }
         }
     </style>
 
-    <div class="container">
+    <div class="full-width">
         @if(session('success'))
             <div class="alert">
                 {{ session('success') }}
@@ -176,7 +197,7 @@
                     for (let i = 0; i < quantity; i++) {
                         const taskField = `
                             <div class="task-group">
-                                <h1 style="margin: 0; font-size: 18px; color: #ff6f20;">Task ${i + 1}</h4>
+                                <h2 style="margin: 0; font-size: 18px; color: #ff6f20;">Task ${i + 1}</h2>
                                 <div class="form-group">
                                     <label>Task</label>
                                     <input type="text" name="task[]" class="form-control" required>
